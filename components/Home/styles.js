@@ -22,7 +22,7 @@ export const OverLayContainer = styled.View`
 `;
 
 export const BottomStyling = styled.View`
-  height: 40%;
+  height: 60%;
   align-items: center;
   justify-content: center;
 `;
