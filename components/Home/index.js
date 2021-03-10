@@ -1,7 +1,7 @@
-import { Button, Text } from "native-base";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { signout } from "../store/actions/authActions";
+import { Text } from "react-native";
+import { signout } from "../../store/actions/authActions";
 // Styling
 import {
   BottomStyling,
@@ -15,6 +15,7 @@ import {
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authReducer.user);
+
   return (
     <HomeBackground
       source={{
@@ -27,9 +28,17 @@ const Home = ({ navigation }) => {
           <Title>Flights</Title>
         </TopStyling>
         <BottomStyling>
-          <ButtonStyled onPress={() => navigation.navigate("Signin")}>
-            Signin
-          </ButtonStyled>
+          <Text>
+            {!user ? (
+              <ButtonStyled onPress={() => navigation.navigate("Sign In")}>
+                Sign In / Sign Up
+              </ButtonStyled>
+            ) : (
+              <ButtonStyled onPress={() => dispatch(signout(navigation))}>
+                Sign Out
+              </ButtonStyled>
+            )}
+          </Text>
         </BottomStyling>
       </OverLayContainer>
     </HomeBackground>

@@ -13,14 +13,14 @@ const RootNavigator = () => {
     <Navigator initialRouteName="Home">
       <Screen name="Home" component={Home} options={{ headerShown: false }} />
       <Screen
-        name="Signin"
+        name="Sign In"
         component={Signin}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
       <Screen
-        name="Signup"
+        name="Sign Up"
         component={Signup}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
     </Navigator>
   );

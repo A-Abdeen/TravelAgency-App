@@ -1,7 +1,6 @@
 import React from "react";
 import { Provider } from "react-redux";
 import store from "./store";
-import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import RootNavigator from "./components/Navigation";
 

@@ -10,21 +10,17 @@ const Signup = ({ navigation }) => {
   const [user, setUser] = useState({
     username: "",
     password: "",
-
     email: "",
   });
+
+  //--------------------HandleSubmit
+
   const handleSubmit = () => {
     dispatch(signup(user, navigation));
-    console.log(
-      "🚀 ~ file: Signup.js ~ line 19 ~ handleSubmit ~ navigation",
-      navigation
-    );
-    console.log("🚀 ~ file: Signup.js ~ line 19 ~ handleSubmit ~ user", user);
   };
 
   return (
     <View>
-      <Text>Signup Page</Text>
       <Text>Username</Text>
       <AuthTextInput
         placeholder="username"
@@ -46,10 +42,10 @@ const Signup = ({ navigation }) => {
       />
 
       <Button onPress={handleSubmit}>
-        <Text>Sing Up</Text>
+        <Text>Sign Up</Text>
       </Button>
-      <AuthOther onPress={() => navigation.navigate("Signin")}>
-        Already have an account? Sign in!
+      <AuthOther onPress={() => navigation.navigate("Sign In")}>
+        Already have an account? Sign In!
       </AuthOther>
     </View>
   );

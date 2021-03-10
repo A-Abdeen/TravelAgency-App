@@ -16,7 +16,6 @@ const Signin = ({ navigation }) => {
 
   return (
     <View>
-      <Text>Signin Page</Text>
       <Text>Username</Text>
       <AuthTextInput
         placeholder="Username"
@@ -32,10 +31,10 @@ const Signin = ({ navigation }) => {
         onChangeText={(password) => setUser({ ...user, password })}
       />
       <Button onPress={handleSubmit}>
-        <Text>Sign in</Text>
+        <Text>Sign In</Text>
       </Button>
-      <AuthOther onPress={() => navigation.navigate("Signup")}>
-        New User ? register!
+      <AuthOther onPress={() => navigation.navigate("Sign Up")}>
+        New User ? Register!
       </AuthOther>
     </View>
   );
