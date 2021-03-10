@@ -2,8 +2,10 @@ import React, { useState } from "react";
 
 import { Text, View, Button } from "native-base";
 import { useDispatch } from "react-redux";
-import { AuthTextInput, AuthOther } from "./styles";
 import { signup } from "../../store/actions/authActions";
+//Styling
+import { AuthButton, AuthButtonText, AuthContainer, AuthOther, AuthTextInput, AuthTitle } from './styles';
+
 
 const Signup = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -20,34 +22,32 @@ const Signup = ({ navigation }) => {
   };
 
   return (
-    <View>
-      <Text>Username</Text>
+    <AuthContainer>
+      <AuthTitle>Sign up</AuthTitle>
       <AuthTextInput
         placeholder="username"
-        placeholderTextColor="grey"
+        placeholderTextColor="#997379"
         onChangeText={(username) => setUser({ ...user, username })}
       />
-      <Text>Password</Text>
       <AuthTextInput
         placeholder="password"
-        placeholderTextColor="grey"
+        placeholderTextColor="#997379"
         secureTextEntry={true}
         onChangeText={(password) => setUser({ ...user, password })}
       />
-      <Text>Email</Text>
       <AuthTextInput
         placeholder="email"
-        placeholderTextColor="grey"
+        placeholderTextColor="#997379"
         onChangeText={(email) => setUser({ ...user, email })}
       />
 
-      <Button onPress={handleSubmit}>
-        <Text>Sign Up</Text>
-      </Button>
+      <AuthButton  onPress={handleSubmit}>
+      <AuthButtonText>Sign up</AuthButtonText>
+      </AuthButton >
       <AuthOther onPress={() => navigation.navigate("Sign In")}>
         Already have an account? Sign In!
       </AuthOther>
-    </View>
+      </AuthContainer>
   );
 };
 
