@@ -2,8 +2,9 @@ import { Button, Text, View } from "native-base";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signin } from "../../store/actions/authActions";
+//Styling 
+import { AuthButton, AuthButtonText, AuthContainer, AuthOther, AuthTextInput, AuthTitle } from "./styles";
 
-import { AuthTextInput, AuthOther } from "./styles";
 const Signin = ({ navigation }) => {
   const dispatch = useDispatch();
   const [user, setUser] = useState({
@@ -15,28 +16,27 @@ const Signin = ({ navigation }) => {
   };
 
   return (
-    <View>
-      <Text>Username</Text>
-      <AuthTextInput
+    <AuthContainer>
+      <AuthTitle>Sign in</AuthTitle>
+      <AuthTextInput 
         placeholder="Username"
-        placeholderTextColor="grey"
+        placeholderTextColor="#997379"
         onChangeText={(username) => setUser({ ...user, username })}
       />
-      <Text>Password</Text>
 
       <AuthTextInput
         placeholder="Password"
-        placeholderTextColor="grey"
+        placeholderTextColor="#997379"
         secureTextEntry={true}
         onChangeText={(password) => setUser({ ...user, password })}
       />
-      <Button onPress={handleSubmit}>
-        <Text>Sign In</Text>
-      </Button>
+      <AuthButton onPress={handleSubmit}>
+      <AuthButtonText>Sign In</AuthButtonText>
+      </AuthButton>
       <AuthOther onPress={() => navigation.navigate("Sign Up")}>
         New User ? Register!
       </AuthOther>
-    </View>
+      </AuthContainer>
   );
 };
 

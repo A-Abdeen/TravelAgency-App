@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import { TextInput } from "react-native";
+
 export const AuthContainer = styled.View`
   flex: 1;
   align-self: stretch;
@@ -11,10 +12,10 @@ export const AuthContainer = styled.View`
 `;
 
 export const AuthTitle = styled.Text`
-  color: #170616;
+  color: #032c61;
   font-size: 24px;
   margin-bottom: 20px;
-  border-bottom-color: #ff0000;
+  border-bottom-color: #739993;
 `;
 
 export const AuthTextInput = styled.TextInput`
@@ -42,6 +43,6 @@ export const AuthButtonText = styled.Text`
 `;
 
 export const AuthOther = styled.Text`
-  color: #032c61;
+  color: #997379;
   margin-top: 15px;
 `;
