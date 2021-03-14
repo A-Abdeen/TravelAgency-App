@@ -1,6 +1,7 @@
 import * as types from "../actions/types";
 const initialState = {
   user: null,
+  loading: true,
 };
 
 const reducer = (state = initialState, action) => {
@@ -9,8 +10,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        loading: false,
       };
-
     default:
       return state;
   }

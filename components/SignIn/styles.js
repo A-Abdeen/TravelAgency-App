@@ -28,6 +28,6 @@ export const BottomStyling = styled.View`
 `;
 
 export const ButtonStyled = styled.Text`
-  font-size: 20px;
+  font-size: 20;
   color: #fff;
 `;

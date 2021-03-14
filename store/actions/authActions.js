@@ -25,15 +25,12 @@ const setUser = (token) => {
 export const signup = (newUser, navigation) => {
   return async (dispatch) => {
     try {
-      console.log("Heloo");
-
       const res = await instance.post("/signup", newUser);
-      console.log(res);
 
       dispatch(setUser(res.data.token));
 
       alert(`Welcome ${newUser.username}`);
-      navigation.replace("Home");
+      navigation.replace("Profile");
     } catch (error) {
       console.error(error);
     }
@@ -49,7 +46,6 @@ export const signin = (userData, navigation) => {
 
       alert(`Welcome, ${userData.username}`);
       navigation.replace("Home");
-
       dispatch(setUser(res.data.token));
     } catch (error) {
       console.error(error);
@@ -86,5 +82,19 @@ export const checkForToken = () => async (dispatch) => {
     }
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const updateUser = (updatedProfile, navigation) => async (dispatch) => {
+  try {
+    alert("Profile Updated");
+    const res = await instance.put("/userUpdate", updatedProfile);
+    dispatch(setUser(res.data[1]), {
+      type: types.SET_USER,
+      payload: res.data[0],
+    });
+    navigation.replace("Home");
+  } catch (err) {
+    console.error(err);
   }
 };
