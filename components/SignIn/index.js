@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Text } from "react-native";
 import { signout } from "../../store/actions/authActions";
-
 // Styling
 import {
   BottomStyling,
@@ -12,9 +12,10 @@ import {
   TopStyling,
 } from "./styles";
 
-const Home = ({ navigation }) => {
+const SignIn = ({ navigation }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authReducer.user);
+
   return (
     <HomeBackground
       source={{
@@ -24,34 +25,24 @@ const Home = ({ navigation }) => {
     >
       <OverLayContainer>
         <TopStyling>
-          <Title>Home Screen</Title>
+          <Title>Flights</Title>
         </TopStyling>
         <BottomStyling>
-          <>
+          <Text>
             {!user ? (
-              <>
-                <ButtonStyled onPress={() => navigation.navigate("Sign In")}>
-                  | Sign In |
-                </ButtonStyled>
-                <ButtonStyled onPress={() => navigation.navigate("Sign Up")}>
-                  | Sign Up |
-                </ButtonStyled>
-              </>
+              <ButtonStyled onPress={() => navigation.navigate("Sign In")}>
+                Sign In / Sign Up
+              </ButtonStyled>
             ) : (
-              <>
-                <ButtonStyled onPress={() => navigation.navigate("Profile")}>
-                  | Update Profile |
-                </ButtonStyled>
-                <ButtonStyled onPress={() => dispatch(signout(navigation))}>
-                  | Sign Out, {user.username} ? |
-                </ButtonStyled>
-              </>
+              <ButtonStyled onPress={() => dispatch(signout(navigation))}>
+                Sign Out
+              </ButtonStyled>
             )}
-          </>
+          </Text>
         </BottomStyling>
       </OverLayContainer>
     </HomeBackground>
   );
 };
 
-export default Home;
+export default SignIn;
