@@ -32,7 +32,7 @@ export const AuthButton = styled.TouchableOpacity`
   align-self: stretch;
   align-items: center;
   padding: 20px;
-  background-color: #032c61;
+  background-color: #e74c3c;
   margin-top: 30px;
 `;
 

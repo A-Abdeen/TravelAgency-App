@@ -24,7 +24,7 @@ const Home = ({ navigation }) => {
     >
       <OverLayContainer>
         <TopStyling>
-          <Title>Home Screen</Title>
+          <Title>Pringles</Title>
         </TopStyling>
         <BottomStyling>
           <>
@@ -38,7 +38,10 @@ const Home = ({ navigation }) => {
                 </ButtonStyled>
               </>
             ) : (
-              <>
+                <>
+                <ButtonStyled onPress={() => navigation.navigate("Search Form")}>
+                  | Search for Flight |
+                </ButtonStyled>
                 <ButtonStyled onPress={() => navigation.navigate("Profile")}>
                   | Update Profile |
                 </ButtonStyled>
