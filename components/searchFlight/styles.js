@@ -29,6 +29,8 @@ export const AuthContainer = styled.View`
   background-color: #f1f6ff;
   padding-right: 60px;
   padding-left: 60px;
+  margin:20px;
+  padding:25px;
 `;
 
 export const AuthTextInput = styled.TextInput`
@@ -39,4 +41,18 @@ export const AuthTextInput = styled.TextInput`
   color: #032c61;
   border-bottom-color: #032c61;
   border-bottom-width: 1px;
+`;
+
+
+export const AuthOther = styled.Text`
+  color: black;
+  margin-top: 15px;
+  margin-right:22px;
+`;
+
+export const AuthTitle = styled.Text`
+  color: black;
+  font-size: 18px;
+  margin-bottom: 20px;
+  border-bottom-color: black;
 `;
