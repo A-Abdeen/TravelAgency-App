@@ -1,25 +1,36 @@
 import React, { useState } from "react";
 import ToggleSwitch from 'toggle-switch-react-native'
-import { Text, View, Button, Picker, Right, Left } from "native-base";
+import { Form,Text, View, Button, Picker, Right, Left ,Content, Item, Body} from "native-base";
 import DatePicker from 'react-native-datepicker';
 import NumericInput from 'react-native-numeric-input'
 import { useDispatch, useSelector } from "react-redux";
 import DropDownPicker from 'react-native-dropdown-picker';
 
 //Styling
-import { AuthButton, AuthButtonText, AuthContainer, AuthTextInput, FlightIconStyled} from './styles';
+import { AuthButton, AuthButtonText, AuthContainer, AuthTextInput, FlightIconStyled, AuthOther, AuthTitle} from './styles';
 
-const SearchForm = ({navigation}) => {
-  const [flight, setFlight] = useState({
-    originId: "",
+const SearchForm = ({ navigation }) => {
+  const [roundtrip, setRoundtrip] = useState(false);
+  const [flight, setFlight] = useState(
+    roundtrip
+    ? {
+    originId:"",
     destinationId: "",
     departureDate: "",
     arrivalDate: "",
-    departureTime: "",
-    arrivalTime: "",
     class :"",
     seats: 0,
-  });
+  }
+  : {
+
+  originId:"",
+  destinationId: "",
+  departureDate: "",
+  class :"",
+  seats: 0,
+
+}
+);
 
   const destination = useSelector(
     (state) => state.locationReducer.destinations
@@ -30,21 +41,56 @@ const SearchForm = ({navigation}) => {
 
   return (
     <AuthContainer>
-      <Text>
+      <AuthTitle>
       <FlightIconStyled type="MaterialIcons" name="flight-takeoff" size={10}/> 
-        Find Your Perfect Trip</Text>
-        <ToggleSwitch
-                isOn={true}
-                onColor="green"
-                offColor="red"
-                label="Round Trip"
-                labelStyle={{ color: "black", fontWeight: "900" }}
-                size="small"
-                onToggle={isOn => console.log("changed to : ", isOn)}
-      />
+        Find Your Perfect Trip</AuthTitle>
+      
+      <Form>
+        <Content>
+          <Item>
+            <Button danger title="One-way" onPress={() => setRoundtrip(false)} >
+              <Text>One way</Text>
+            </Button>
+            <Button light title="Round Trip" onPress={() => setRoundtrip(true)} >
+              <Text>Round Trip</Text>
+            </Button>
+          </Item>
+          
+          <AuthOther>From:</AuthOther>
+          <Item>
+      <Picker
+          selectedValue={flight.originId}
+          mode="dropdown"
+          placeholder=" Choose an airport"
+          style={{ width: 300 , height: 60 }}
+          onValueChange={(location) => setFlight({ ...flight, location })}
+            >
+              
+              {/* {destinationList.map((destination) => ( */}
+                <Picker.Item label="destinationId" value="destination" key="destination" />
+              
 
+      </Picker>
+          </Item>
+
+
+      <AuthOther>To:</AuthOther>
+      <Item>
+      <Picker
+          selectedValue={flight.destinationId}
+          mode="dropdown"
+          placeholder=" Choose an airport"
+          style={{ width: 300 , height: 60 }}
+          onValueChange={(location) => setFlight({ ...flight, location })}
+            >
+              
+              {/* {destinationList.map((destination) => ( */}
+                <Picker.Item label="destinationId" value="destination" key="destination" />
+      </Picker>
+      </Item>
+        
 <DatePicker
-        style={{width: 200}}
+        style={{width: 250}}
         date={flight.departureDate}
         mode="date"
         placeholder="Departure Date"
@@ -64,67 +110,65 @@ const SearchForm = ({navigation}) => {
           }
         }}
         onDateChange={( departureDate) => setFlight({...flight, departureDate})}
-      />
-      <DatePicker
-        style={{width: 200}}
-        date={flight.arrivalDate}
-        mode="date"
-        placeholder="Arrival Date"
-        format="YYYY-MM-DD"
-        minDate={new Date()}
-        confirmBtnText="Confirm"
-        cancelBtnText="Cancel"
-        customStyles={{
-          dateIcon: {
-            position: 'absolute',
-            left: 0,
-            top: 4,
-            marginLeft: 0
-          },
-          dateInput: {
-            marginLeft:36
+          />
+          
+          {roundtrip ??
+            <DatePicker
+              style={{ width: 250 }}
+              date={flight.arrivalDate}
+              mode="date"
+              placeholder="Arrival Date"
+              format="YYYY-MM-DD"
+              minDate={new Date()}
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              customStyles={{
+                dateIcon: {
+                  position: 'absolute',
+                  left: 0,
+                  top: 4,
+                },
+                dateInput: {
+                  marginLeft: 36,
+                  padding: 10
+                },
+              }}
+              onDateChange={(arrivalDate) => setFlight({ ...flight, arrivalDate })}
+            />
           }
-        }}
-        onDateChange={( arrivalDate) => setFlight({...flight, arrivalDate})}
-      />
 
-{/* <DropDownPicker
-    items= {[{label: 'USA', value: 'usa'}, {label: 'USA', value: 'usa'}]}
-    defaultValue="location"
-    containerStyle={{height: 40}}
-    style={{backgroundColor: '#fafafa'}}
-    itemStyle={{
-        justifyContent: 'flex-start'
-    }}
-    dropDownStyle={{backgroundColor: '#fafafa'}}
-    onChangeItem= {(originId) => setFlight({...flight, originId})}
-/> */}
-       <Left>
+       <Item>
       <Picker
-        selectedValue={flight.class}
-        style={{ height: 50, width: 150 }}
-        onValueChange={(itemValue) => setFlight(itemValue)}
-      >
-        <Picker.Item label="Economy Class" value="economy" />
-        <Picker.Item label="Business Class" value="business" />
-        </Picker>
-        </Left>
+          selectedValue={flight.class}
+          mode="dropdown"
+          placeholder=" Choose a class"
+          style={{ width: 300 , height: 60 }}
+          onValueChange={(itemValue) => setFlight({ ...flight, itemValue })}
+          >
+          
+          <Picker.Item label="Economy Class" value="economy" />
+          <Picker.Item label="Business Class" value="business" />
 
-      <Right>
+      </Picker>
+      </Item>
+      
+          <AuthOther>Number of Passengers</AuthOther>
+     
       <NumericInput 
          rounded
-         totalHeight={30}
+         totalHeight={35}
          totalWidth={60}
          rightButtonBackgroundColor='#e74c3c' 
          leftButtonBackgroundColor='#f1f6ff'
          onChange={flight.seats}
-        />
-        </Right>
+            />
+        
 
       <AuthButton onPress={() => navigation.navigate("")}>
         <AuthButtonText>Search for Flight</AuthButtonText>
-      </AuthButton>
-      
+          </AuthButton>
+          </Content>
+      </Form>
       </AuthContainer>
   );
 };
