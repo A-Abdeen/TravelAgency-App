@@ -4,13 +4,14 @@ import { Form,Text, View, Button, Picker, Right, Left ,Content, Item, Body} from
 import DatePicker from 'react-native-datepicker';
 import NumericInput from 'react-native-numeric-input'
 import { useDispatch, useSelector } from "react-redux";
-import DropDownPicker from 'react-native-dropdown-picker';
 
 //Styling
 import { AuthButton, AuthButtonText, AuthContainer, AuthTextInput, FlightIconStyled, AuthOther, AuthTitle} from './styles';
 
 const SearchForm = ({ navigation }) => {
   const [roundtrip, setRoundtrip] = useState(false);
+  const dispatch = useDispatch();
+
   const [flight, setFlight] = useState(
     roundtrip
     ? {
@@ -32,12 +33,24 @@ const SearchForm = ({ navigation }) => {
 }
 );
 
-  const destination = useSelector(
-    (state) => state.locationReducer.destinations
-  );
-  const destinationList = destination.map((destination) => (
-    <option value={`${destination.id}`}>{destination.airportName}</option>
-  ));
+const origin = useSelector((state) => state.locationReducer.origins);
+
+const originList = origin.map((origin) => (
+  <option value={`${origin.id}`}>{origin.airportName}</option>
+));
+
+  const destination = useSelector((state) => state.locationReducer.destinations);
+  
+const destinationList = destination.map((destination) => (
+  <option value={`${destination.id}`}>{destination.airportName}</option>
+));
+  
+const handleChange = (event) =>
+setFlight({ ...flight, [event.target.name]: event.target.value });
+
+const handleSubmit = () => {
+dispatch(searchFlights(flight));
+};
 
   return (
     <AuthContainer>
@@ -45,50 +58,52 @@ const SearchForm = ({ navigation }) => {
       <FlightIconStyled type="MaterialIcons" name="flight-takeoff" size={10}/> 
         Find Your Perfect Trip</AuthTitle>
       
-      <Form>
+      <Form >
         <Content>
           <Item>
-            <Button danger title="One-way" onPress={() => setRoundtrip(false)} >
+            <Button danger title="One-way" onPress={() => setRoundtrip(true)} >
               <Text>One way</Text>
             </Button>
-            <Button light title="Round Trip" onPress={() => setRoundtrip(true)} >
+            <Button light title="Round Trip" onPress={() => setRoundtrip(false)} >
               <Text>Round Trip</Text>
             </Button>
           </Item>
           
           <AuthOther>From:</AuthOther>
-          <Item>
+          {/* <Item>
       <Picker
           selectedValue={flight.originId}
           mode="dropdown"
           placeholder=" Choose an airport"
           style={{ width: 300 , height: 60 }}
-          onValueChange={(location) => setFlight({ ...flight, location })}
-            >
-              
-              {/* {destinationList.map((destination) => ( */}
-                <Picker.Item label="destinationId" value="destination" key="destination" />
-              
-
-      </Picker>
-          </Item>
+          onValueChange={(originId) =>
+            setFlight({ ...flight, originId })
+          }
+        >
+          {originList.map((origin) => (
+            <Picker.Item label={origin} value={origin} key={origin} />
+          ))}
+            </Picker>
+            
+          </Item> */}
 
 
       <AuthOther>To:</AuthOther>
-      <Item>
+      {/* <Item>
       <Picker
           selectedValue={flight.destinationId}
           mode="dropdown"
           placeholder=" Choose an airport"
           style={{ width: 300 , height: 60 }}
-          onValueChange={(location) => setFlight({ ...flight, location })}
+          onValueChange={(destinationId) => setFlight({ ...flight, destinationId })}
             >
               
-              {/* {destinationList.map((destination) => ( */}
-                <Picker.Item label="destinationId" value="destination" key="destination" />
-      </Picker>
-      </Item>
-        
+              {destinationList.map((destination) => (
+                <Picker.Item label={destination} value={destination} key={destination} />
+                ))}
+                </Picker>
+                
+              </Item> */}
 <DatePicker
         style={{width: 250}}
         date={flight.departureDate}
@@ -109,7 +124,7 @@ const SearchForm = ({ navigation }) => {
             marginLeft:36
           }
         }}
-        onDateChange={( departureDate) => setFlight({...flight, departureDate})}
+        onDateChange={(departureDate) => setFlight({...flight, departureDate})}
           />
           
           {roundtrip ??
@@ -164,7 +179,7 @@ const SearchForm = ({ navigation }) => {
             />
         
 
-      <AuthButton onPress={() => navigation.navigate("")}>
+      <AuthButton onPress={() => navigation.navigate("Search List")}>
         <AuthButtonText>Search for Flight</AuthButtonText>
           </AuthButton>
           </Content>
