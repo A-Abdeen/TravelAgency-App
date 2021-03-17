@@ -15,7 +15,7 @@ const { Navigator, Screen } = createStackNavigator();
 
 const RootNavigator = () => {
   return (
-    <Navigator initialRouteName="Contact Form">
+    <Navigator initialRouteName="Search Form">
       {/* <Screen name="Home" component={Home} options={{ headerShown: false }} /> */}
       <Screen
         name="Sign In"
