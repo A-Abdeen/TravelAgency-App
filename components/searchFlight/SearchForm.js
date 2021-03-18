@@ -213,7 +213,7 @@ const SearchForm = ({ navigation }) => {
 
           <AuthButton
             onPress={handleSubmit}
-            onPress={() => navigation.navigate("Search List")}
+            onPress={() => navigation.navigate("Passenger Form")}
           >
             <AuthButtonText>Search for Flight</AuthButtonText>
           </AuthButton>

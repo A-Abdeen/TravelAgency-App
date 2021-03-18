@@ -12,6 +12,15 @@ import {
   TopStyling,
 } from "./styles";
 
+import {
+  AuthButton,
+  AuthButtonText,
+  AuthContainer,
+  AuthOther,
+  AuthTextInput,
+  AuthTitle,
+} from "./styles";
+
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authReducer.user);
@@ -27,30 +36,33 @@ const Home = ({ navigation }) => {
           <Title>Pringles</Title>
         </TopStyling>
         <BottomStyling>
-          <>
+          <AuthContainer>
             {!user ? (
               <>
-                <ButtonStyled onPress={() => navigation.navigate("Sign In")}>
-                  | Sign In |
-                </ButtonStyled>
-                <ButtonStyled onPress={() => navigation.navigate("Sign Up")}>
-                  | Sign Up |
-                </ButtonStyled>
+                <AuthButton onPress={() => navigation.navigate("Search Form")}>
+                  <AuthButtonText>Search Flights</AuthButtonText>
+                </AuthButton>
+                <AuthButton onPress={() => navigation.navigate("Sign In")}>
+                  <AuthButtonText>Sign In</AuthButtonText>
+                </AuthButton>
+                <AuthButton onPress={() => navigation.navigate("Sign Up")}>
+                  <AuthButtonText>Sign Up</AuthButtonText>
+                </AuthButton>
               </>
             ) : (
-                <>
-                <ButtonStyled onPress={() => navigation.navigate("Search Form")}>
-                  | Search for Flight |
-                </ButtonStyled>
-                <ButtonStyled onPress={() => navigation.navigate("Profile")}>
-                  | Update Profile |
-                </ButtonStyled>
-                <ButtonStyled onPress={() => dispatch(signout(navigation))}>
-                  | Sign Out, {user.username} ? |
-                </ButtonStyled>
+              <>
+                <AuthButton onPress={() => navigation.navigate("Search Form")}>
+                  <AuthButtonText>Search Flights</AuthButtonText>
+                </AuthButton>
+                <AuthButton onPress={() => navigation.navigate("Profile")}>
+                  <AuthButtonText>Update Profile</AuthButtonText>
+                </AuthButton>
+                <AuthButton onPress={() => dispatch(signout(navigation))}>
+                  <AuthButtonText>Sign Out, {user.username} ?</AuthButtonText>
+                </AuthButton>
               </>
             )}
-          </>
+          </AuthContainer>
         </BottomStyling>
       </OverLayContainer>
     </HomeBackground>
